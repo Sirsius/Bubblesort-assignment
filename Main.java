@@ -60,7 +60,7 @@ class Presentation {
         // Showing current list. Sorted by State in ascending order.
         SessionOneMethods.createLine(getArray());
 
-        minorDelay(5,"\nInitializing bubble sort for capitals in descending order in 5 seconds\n");
+        minorDelay(5,"\nInitializing bubble sort for capitals in descending order in 5 seconds.\n");
 
         // Using getters and setters to change private array with bubble sort
         setArray(SessionOneMethods.bubblySort(getArray()));
@@ -80,20 +80,17 @@ class Presentation {
     public void beginSessionTwo(Scanner scanner){
        minorDelay(10, "\n" +
                 "**************************   PART TWO    **************************\n" +
-                "In 10 seconds, The same list from the beginning will once again populate below.\n" +
-                "The 2D Array will be converted to a hashmap and displayed below in key-value pairs\n");
+                "In 10 seconds, The same list from before will once again populate below.\n" +
+                "The 2D Array will be converted to a hashmap and displayed below in key-value pairs.\n");
 
         // Initializing instance of Part Two by passing in the current 2D array and randomizing it.
        SessionTwoMethods sessionTwo = new SessionTwoMethods(getArray());
         sessionTwo.printHashMap();
 
-        minorDelay(5, "\nConverting HashMap to TreeMap and printing using generic binary search\n");
+        minorDelay(5, "\nConverting HashMap to TreeMap and printing using generic binary search.\n");
         sessionTwo.printTreeMap();
 
-        System.out.println("""
-
-                Please provide the name of any state. Press "Q" to end presentation
-                (If you make a typo, I'll correct you.)""");
+        System.out.println("\nPlease provide the name of any state. \nPress \"Q\" to end presentation." +  "\n(If you make a typo, I'll correct you.)");
         sessionTwo.secondQuestionnaire(scanner);
     }
 
@@ -239,11 +236,10 @@ class SessionOneMethods {
         ArrayList<Integer> dontCheat = new ArrayList<>();
 
         // Intro prompt
-        System.out.println("""
-
-                Please enter multiple state capitals, one per line and press enter.
-                The accumulative score for each correct answer will be displayed after each input.
-                press "Q" and enter to quit.""");
+        System.out.println(
+                "\nPlease enter multiple state capitals, one per line and press enter." +
+                "\nThe accumulative score for each correct answer will be displayed after each input." +
+                "\npress \"Q\" and enter to quit.");
 
         while (true) {
             // Breaking the loop if the user has max score
@@ -315,8 +311,8 @@ class SessionTwoMethods {
 
     public SessionTwoMethods(String[][] currentArray){
         // convert array to hash and tree, then store as fields
-        hashMap = convertToMap(currentArray);
-        treeMap = convertHashToTree(hashMap);
+        this.hashMap = convertToMap(currentArray);
+        this.treeMap = convertHashToTree(hashMap);
     }
     public void printHashMap(){
         createString(hashMap);
@@ -324,7 +320,7 @@ class SessionTwoMethods {
     public void printTreeMap(){
         createString(treeMap);
     }
-    public static TreeMap convertHashToTree(HashMap <String, String> hashMap){
+    public static TreeMap<String,String> convertHashToTree(HashMap <String, String> hashMap){
         TreeMap<String, String> treeMap = new TreeMap<>();
         for(Map.Entry<String, String> entry : hashMap.entrySet()){
             // Swapping values to sort by capital
@@ -336,7 +332,7 @@ class SessionTwoMethods {
     }
 
     // The method below turns the Array into a HashMap.
-    public static HashMap convertToMap(String[][] currentArray) {
+    public static HashMap<String,String> convertToMap(String[][] currentArray) {
         // Initializing HashMap
         Map<String, String> hashMap = new HashMap<>();
 
@@ -388,7 +384,7 @@ class SessionTwoMethods {
 
             // break if quit
             if(userInput.toString().equals("q")){
-                System.out.println("Presentation finished");
+                System.out.println("Presentation finished.");
                 break;
             }
 
@@ -409,7 +405,7 @@ class SessionTwoMethods {
             // This is for fun and totally unnecessary, not part of assignment
             CheckWord gotta = new CheckWord();
 
-            if(!state.isEmpty()){
+            if(!state.toString().isEmpty()){
                 System.out.println("The capital for " + Presentation.formatWord(keyword) + " is "+ Presentation.formatWord(state));
             } else {
                 System.out.println("That's not a state.");
@@ -418,7 +414,7 @@ class SessionTwoMethods {
                 if (!gotta.typo(keyword).toString().isEmpty()){
                     String correction = gotta.typo(keyword).toString();
                     String capital = this.hashMap.get(correction);
-                    System.out.println("I think you meant " + Presentation.formatWord(correction) + "?... if so the capital would be " + Presentation.formatWord(capital));
+                    System.out.println("I think you meant " + Presentation.formatWord(correction) + "?... if so the capital would be " + Presentation.formatWord(capital) + ".");
                 }
             }
         }
@@ -490,5 +486,4 @@ class CheckWord {
 
         return (result <=2) ? correct : "";
     }
-
 }
